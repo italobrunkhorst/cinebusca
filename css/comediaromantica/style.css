@@ -6,7 +6,7 @@ body{
     background-color: f2f2f2;
 }
 hr{
-    margin: 0 10% ;
+    margin: 0 10%;
 }
 h1{
     text-align: center;
@@ -50,11 +50,17 @@ p{
     background-color: #005f74;
 }
 @media (max-width: 768px){
+    /*body{
+        background-color: white;
+    }*/
     h1{
         margin: 30px;
         font-size: 1.5em;
     }
-    hr, .corpo{
+    hr{
+        margin: 0;
+    }
+    .corpo{
         margin: 0;
         padding: 20px;
     }
