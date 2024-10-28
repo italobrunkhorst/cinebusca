@@ -35,6 +35,18 @@ p{
     margin: 10px auto;
     max-width: 600px;
 }
+button{
+    background-color: #008cba;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+button{
+    background-color: #005f74;
+}
 @media (max-width: 768px){
     h1{
         margin: 30px;
