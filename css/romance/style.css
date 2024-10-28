@@ -1,0 +1,21 @@
+hr{
+    margin: 0 20px 0 20px;
+}
+#corpo1{
+    background-color: white;
+    height: 500px;
+    text-align: center;
+    padding: 50px;
+}
+#corpo1 img{
+    width: 200px;
+}
+#corpo2{
+    background-color: white;
+    height: 500px;
+    text-align: center;
+    padding: 50px;
+}
+#corpo2 img{
+    width: 200px;
+}
