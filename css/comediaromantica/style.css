@@ -49,6 +49,25 @@ p{
 .buttonvermais{
     background-color: #005f74;
 }
+.page{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    background-color: white;
+    margin: 0 10%;
+}
+.link_page{
+    text-decoration: none;
+    color: black;
+}
+.li_page{
+    padding: 3px;
+}
+.button_page{
+    background-color: #008cba;
+    border: solid #044155 1px;
+    border-radius: 5px;
+}
 @media (max-width: 768px){
     /*body{
         background-color: white;
