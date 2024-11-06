@@ -4,6 +4,9 @@
 body{
     font-family:Arial;
     padding-top: 70px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 header{
     background-color: black;
@@ -74,7 +77,7 @@ h2, #dropdown{
 }
 footer{
     background-color: yellow;
-    height: 130px;
+    height: 100px;
     text-align: center;
     padding-top: 10px;
 }
@@ -85,4 +88,35 @@ footer{
 #footer_home{
     background-color: black;
     color: white;
+    margin-top: auto;
+}
+#search-results{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+.movie-result{
+    text-align: center;
+    width: 150px;
+    flex-shrink: 0;
+}
+.movie-result img{
+    width: 100%;
+    height: 225px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.movie-result p{
+    margin: 8px 0 0;
+    font-size: 14px;
+}
+#corpo{
+    background-color: white;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10%;
 }

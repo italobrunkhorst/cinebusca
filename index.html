@@ -5,37 +5,37 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="img/pipoca.png" type="image/x-icon">
     <title>CineBusca</title>
-    
 </head>
 <body>
     <header>
         <div id="cabecalho">
             <a href="index.html" class="link_cabecalho"><img src="img/botao-de-inicio.png" alt="" class="link_cabecalho"></a>
-            
             <h2 id="h2_cabecalho">CineBusca</h2>
             <div id="dropdown">
                 <button id="dropdown-button"><img src="img/cardapio (2).png" alt="" id="menu-img"></button>
                 <div id="dropdown-content">
-                    <a href="categorias/acao.html">Ação</a>
-                    <a href="categorias/aventura.html">Aventura</a>
-                    <a href="categorias/romance.html">Romance</a>
+                    <a href="categorias/acao/page1.html">Ação</a>
+                    <a href="categorias/aventura/page1.html">Aventura</a>
+                    <a href="categorias/romance/page1.html">Romance</a>
                     <a href="categorias/comedia_romantica/page1.html">Comédia Romantica</a>
                 </div>
             </div>
         </div>
     </header>
-    <div id="corpo1">
+    <div id="corpo">
+        <input type="text" id="search-input" placeholder="Digite o nome do filme..." />
+        <button onclick="searchMovies()">Buscar</button>
         <h1>Filmes</h1>
         <p>O melhor site para encontrar os melhores filmes que você busca</p>
-        
+        <div id="search-results"></div>
     </div>
     <footer id="footer_home">
         <h4>CineBusca</h4>
-        <p>Endereço</p>
-        <p>Telefone</p>
         <a href="#"><img src="img/instagram.png" alt="Instagram"></a>
-        <a href="#"><img src="img/facebook.png" alt="Facebook"></a>
-        <a href="#"><img src="img/whatsapp.png" alt="WhatsApp"></a>
+        <a href="#"><img src="img/youtube.png" alt="YouTube"></a>
+        <a href="#"><img src="img/tiktok.png" alt="Tiktok"></a>
+        <p>&copy; 2024 Italo Brunkhorst. Todos os direitos reservados.</p>
     </footer>
+    <script src="js/script.js"></script>
 </body>
 </html>
