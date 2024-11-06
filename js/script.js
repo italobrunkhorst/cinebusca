@@ -15,7 +15,13 @@ function verMais(button){
 
 import { db } from './inicializador-firebase.js'; // Importando a instância do Firebase
 import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-
+function normalizeString(str) {
+    return str
+        .normalize("NFD") // Decompor os caracteres em partes (e.g., "é" se torna "e" + acento)
+        .replace(/[\u0300-\u036f]/g, "") // Remove os sinais diacríticos (acentos)
+        .replace(/[^\w\s]/gi, "")
+        .toLowerCase(); // Converte para minúsculas
+}
 document.getElementById("search-btn").addEventListener("click", () => {
     const searchTerm = document.getElementById("search-input").value;
     searchMovies(searchTerm);
@@ -23,12 +29,12 @@ document.getElementById("search-btn").addEventListener("click", () => {
 // Função para buscar filmes com base no termo de pesquisa
 async function searchMovies(searchTerm) {
     const searchTermLower = searchTerm.toLowerCase();
-    
+    const normalizedSearchTerm = normalizeString(searchTerm);
     const moviesRef = collection(db, "filmes");
     const q = query(
         moviesRef, 
-        where("titleLower", ">=", searchTermLower), 
-        where("titleLower", "<=", searchTermLower + '\uf8ff')
+        where("titleNormalized", ">=", normalizedSearchTerm), 
+        where("titleNormalized", "<=", normalizedSearchTerm + '\uf8ff')
     );
 
     try {
