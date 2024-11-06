@@ -23,11 +23,13 @@
         </div>
     </header>
     <div id="corpo">
-        <input type="text" id="search-input" placeholder="Digite o nome do filme..." />
-        <button onclick="searchMovies()">Buscar</button>
         <h1>Filmes</h1>
         <p>O melhor site para encontrar os melhores filmes que você busca</p>
-        <div id="search-results"></div>
+        
+        <input type="text" id="search-input" placeholder="Digite o nome do filme..." />
+        <button id="search-btn">Buscar</button>
+
+        <div id="results-container"></div>
     </div>
     <footer id="footer_home">
         <h4>CineBusca</h4>
@@ -36,6 +38,7 @@
         <a href="#"><img src="img/tiktok.png" alt="Tiktok"></a>
         <p>&copy; 2024 Italo Brunkhorst. Todos os direitos reservados.</p>
     </footer>
-    <script src="js/script.js"></script>
+
+    <script type="module" src="js/script.js"></script>
 </body>
 </html>
