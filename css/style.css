@@ -146,41 +146,21 @@ h2, #dropdown{
     height: 20px;
 }
 
-@media (max-width: 768px){
-    #cabecalho{
+@media (max-width: 768px) {
+    #cabecalho {
         flex-direction: column;
-        justify-content: center;
-        height: auto;
         padding: 10px;
+        text-align: center;
     }
-    #h2_cabecalho{
-        position: static;
-        transform: none;
-        margin-top: 10px;
-    }
-    #menu-img{
-        width: 50px;
-        height: 50px;
-    }
-    #dropdown-content{
-        left: 50%;
-        min-width: 120px;
-    }
-    #results-container{
-        gap: 8px;
-    }
-    .movie{
-        width: 120px;
-    }
-    #corpo{
-        padding: 20px;
-        margin: 0 5%;
-    }
-}
 
-@media (max-width: 480px){
     #h2_cabecalho {
-        font-size: 16px;
+        position: relative;
+        transform: translateX(0);
+        margin: 10px 0;
+    }
+
+    #dropdown, #entrar, #perfil {
+        margin: 10px 0;
     }
 
     #menu-img {
@@ -188,28 +168,27 @@ h2, #dropdown{
         height: 40px;
     }
 
-    #dropdown-content {
-        left: 50%;
-        min-width: 100px;
+    .movie {
+        width: 45%;
+    }
+}
+
+@media (max-width: 480px) {
+    #menu-img, #icon-entrar, #icon_perfil {
+        width: 30px;
+        height: 30px;
     }
 
-    #cadastro {
-        flex-direction: column;
+    #results-container {
         gap: 8px;
     }
 
-    #icon-entrar,
-    #icon_perfil {
-        width: 15px;
-        height: auto;
-    }
-
     .movie {
-        width: 100px;
+        width: 100%;
     }
 
     #corpo {
-        padding: 10px;
-        margin: 0 2%;
+        padding: 20px;
+        margin: 0 5%;
     }
 }
