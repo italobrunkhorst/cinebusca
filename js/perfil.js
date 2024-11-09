@@ -1,5 +1,5 @@
 import { getAuth, signOut, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { db } from './inicializador-firebase.js'; // Verifique se esse arquivo chama initializeApp()
+import { db } from './inicializador-firebase.js';
 
 document.addEventListener("DOMContentLoaded", () => {
     const auth = getAuth();
@@ -20,13 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     window.location.href = "../index.html";
                 });
             }
-        } /*else {
-            // Se o usuário não está logado, redireciona para a página de login
-            window.location.href = "auth/login.html";
-        }*/
+        }
     });
 });
-
 
 /*função para esconder ou mostrar os botão de entrar e perfil*/
 document.addEventListener("DOMContentLoaded", () => {
