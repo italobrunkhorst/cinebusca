@@ -1,3 +1,4 @@
+/* Reset básico */
 * {
     margin: 0;
     padding: 0;
@@ -5,7 +6,7 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     padding-top: 70px;
     min-height: 100vh;
     display: flex;
@@ -63,8 +64,8 @@ h2, #dropdown {
 }
 
 #menu-img {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
 }
 
 #dropdown:hover #dropdown-content {
@@ -75,7 +76,7 @@ h2, #dropdown {
     display: none;
     position: absolute;
     top: 100%;
-    left: 50%;
+    left: 15%;
     transform: translateX(-50%);
     background-color: black;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -167,23 +168,51 @@ h2, #dropdown {
     height: 20px;
 }
 
-/* Responsividade */
+/* Media Queries para Responsividade */
 
+/* Ajustes para tablets */
 @media (max-width: 768px) {
     #cabecalho {
         flex-direction: column;
+        justify-content: center;
+        height: auto;
         padding: 10px;
-        text-align: center;
     }
 
     #h2_cabecalho {
-        position: relative;
-        transform: translateX(0);
-        margin: 10px 0;
+        position: static;
+        transform: none;
+        margin-top: 10px;
     }
 
-    #dropdown, #entrar, #perfil {
-        margin: 10px 0;
+    #menu-img {
+        width: 50px;
+        height: 50px;
+    }
+
+    #dropdown-content {
+        left: 50%;
+        min-width: 120px;
+    }
+    
+    #results-container {
+        gap: 8px;
+    }
+
+    .movie {
+        width: 120px;
+    }
+
+    #corpo {
+        padding: 20px;
+        margin: 0 5%;
+    }
+}
+
+/* Ajustes para celulares */
+@media (max-width: 480px) {
+    #h2_cabecalho {
+        font-size: 16px;
     }
 
     #menu-img {
@@ -191,27 +220,28 @@ h2, #dropdown {
         height: 40px;
     }
 
-    .movie {
-        width: 45%;
-    }
-}
-
-@media (max-width: 480px) {
-    #menu-img, #icon-entrar, #icon_perfil {
-        width: 30px;
-        height: 30px;
+    #dropdown-content {
+        left: 50%;
+        min-width: 100px;
     }
 
-    #results-container {
+    #cadastro {
+        flex-direction: column;
         gap: 8px;
     }
 
+    #icon-entrar,
+    #icon_perfil {
+        width: 15px;
+        height: auto;
+    }
+
     .movie {
-        width: 100%;
+        width: 100px;
     }
 
     #corpo {
-        padding: 20px;
-        margin: 0 5%;
+        padding: 10px;
+        margin: 0 2%;
     }
 }
