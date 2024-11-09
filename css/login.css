@@ -80,3 +80,53 @@ header{
 .no-account-link:hover {
     text-decoration: underline;
 }
+@media (max-width: 768px) {
+    header {
+        height: 60px;
+    }
+    
+    #h2_cabecalho {
+        font-size: 20px;
+    }
+    
+    .cadastro-form {
+        width: 80%;
+        padding: 15px;
+    }
+    
+    .cadastro-form button {
+        font-size: 14px;
+    }
+}
+
+/* Ajustes para celulares */
+@media (max-width: 480px) {
+    header {
+        height: 50px;
+    }
+    
+    #h2_cabecalho {
+        font-size: 18px;
+    }
+    
+    .cadastro-form {
+        width: 90%;
+        padding: 10px;
+    }
+    
+    .cadastro-form input[type="email"],
+    .cadastro-form input[type="password"],
+    .cadastro-form button {
+        padding: 8px;
+        font-size: 14px;
+    }
+    
+    .cadastro-form h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    
+    .no-account-link {
+        font-size: 14px;
+    }
+}
