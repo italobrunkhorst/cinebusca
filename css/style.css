@@ -1,5 +1,7 @@
 *{
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 body{
     font-family:Arial;
@@ -23,12 +25,21 @@ header{
     padding: 0 20px;
     color: white;
     height: 100%;
+    position: relative;
 }
 .link_cabecalho{
+    display: flex;
+    align-items: center;
     text-decoration: none;
     color: white;
     width: 50px;
     height: 50px;
+}
+#h2_cabecalho{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
 }
 h2, #dropdown{
     margin: 0;
@@ -39,17 +50,14 @@ h2, #dropdown{
 }
 #dropdown-button{
     background-color: black;
-    color: white;
-    padding: 0px 0px;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
 }
 #menu-img{
     width: 70px;
     height: 70px;
 }
-#dropdown:hover #dropdown-content, #dropdown:focus-within #dropdown-content{
+#dropdown:hover #dropdown-content{
     display: block;
 }
 #dropdown-button:hover #dropdown-button:focus{
@@ -75,20 +83,13 @@ h2, #dropdown{
 #dropdown-content a:hover{
     background-color: grey;
 }
-footer{
-    background-color: yellow;
-    height: 100px;
-    text-align: center;
-    padding-top: 10px;
-}
-#footer_contato{
-    background-color: black;
-    color: white;
-}
 #footer_home{
+    height: 100px;
     background-color: black;
     color: white;
     margin-top: auto;
+    text-align: center;
+    padding-top: 10px;
 }
 #results-container{
     display: flex;
@@ -119,4 +120,28 @@ footer{
     flex-direction: column;
     align-items: center;
     margin: 0 10%;
+}
+#cadastro{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+#entrar{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    gap: 5px    ;
+}
+#icon-entrar{
+    width: 20px;
+    height: auto;
+}
+#perfil{
+    display: flex;
+    align-items: center;
+}
+#icon_perfil{
+    width: 20px;
+    height: 20px;
 }
