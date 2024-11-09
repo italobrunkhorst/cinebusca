@@ -59,6 +59,7 @@ p{
 .link_page{
     text-decoration: none;
     color: black;
+    padding: 5px;
 }
 .li_page{
     padding: 3px;
@@ -69,9 +70,6 @@ p{
     border-radius: 5px;
 }
 @media (max-width: 768px){
-    /*body{
-        background-color: white;
-    }*/
     h1{
         margin: 30px;
         font-size: 1.5em;
@@ -97,5 +95,13 @@ p{
     }
     p{
         margin: 10px 15px;
+    }
+    .page {
+        align-items: center;
+        gap: 3px;
+        padding: 5px;
+    }
+    .link_page{
+        padding: 5px;
     }
 }

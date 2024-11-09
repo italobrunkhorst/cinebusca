@@ -1,17 +1,26 @@
-function verMais(button){
-    var dots = button.previousElementSibling.querySelector(".dots");
-    var moreText = button.previousElementSibling.querySelector(".more");
+document.querySelectorAll('.buttonvermais').forEach(button => {
 
-    if (dots.style.display === "none") {
-        dots.style.display = "inline";
-        button.innerHTML = "Ver mais";
-        moreText.style.display = "none";
-    } else {
-        dots.style.display = "none";
-        button.innerHTML = "Ver menos";
-        moreText.style.display = "inline";
-    }
-}
+    button.addEventListener('click', function() {
+
+        const dots = button.previousElementSibling.querySelector('.dots');
+        const moreText = button.previousElementSibling.querySelector('.more');
+
+        if (dots && moreText) {
+            if (dots.style.display === "none") {
+                dots.style.display = "inline";
+                button.textContent = "Ver mais";
+                moreText.style.display = "none";
+            } else {
+                dots.style.display = "none";
+                button.textContent = "Ver menos";
+                moreText.style.display = "inline";
+            }
+        } else {
+            console.warn('Elementos ".dots" ou ".more" não encontrados');
+        }
+    });
+});
+
 
 import { db } from './inicializador-firebase.js'; // Importando a instância do Firebase
 import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";

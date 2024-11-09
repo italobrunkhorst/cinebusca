@@ -124,6 +124,7 @@ h2, #dropdown{
 #cadastro{
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 15px;
 }
 #entrar{
@@ -131,11 +132,12 @@ h2, #dropdown{
     align-items: center;
     text-decoration: none;
     color: white;
-    gap: 5px    ;
+    gap: 15px    ;
 }
 #icon-entrar{
     width: 20px;
     height: auto;
+    vertical-align: middle;
 }
 #perfil{
     display: flex;
