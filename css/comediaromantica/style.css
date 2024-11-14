@@ -4,6 +4,8 @@
 body{
     font-family: 'Times New Roman';
     background-color: f2f2f2;
+    background-image: url('../../img/Wallpaper\ notebook.jfif');
+
 }
 hr{
     margin: 0 10%;
@@ -11,6 +13,10 @@ hr{
 h1{
     text-align: center;
     margin: 50px;
+}
+#title{
+    background-color: white;
+    margin: 0 10%;
 }
 .corpo{
     background-color: white;
@@ -28,10 +34,6 @@ h1{
 iframe{
     width: 100%;
     max-width: 400px;
-}
-h3{
-    margin: 30px;
-    text-align: left;
 }
 p{
     margin: 10px auto;
@@ -69,6 +71,26 @@ p{
     border: solid #044155 1px;
     border-radius: 5px;
 }
+.filme-favorito{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    width: 100%;
+}
+.titulo-filme {
+    flex-grow: 1;
+    text-align: center;
+}
+.favorito-btn{
+    border-radius: 50%;
+    font-size: 1.2em;
+    padding: 0 3px;
+    border: 2px black solid;
+    background-color: rgb(217, 192, 192);
+    cursor: pointer;
+    color: white;
+}
 @media (max-width: 768px){
     h1{
         margin: 30px;
@@ -87,6 +109,9 @@ p{
     }
     p{
         margin: 10px 20px;
+    }
+    #title{
+        margin: 0;
     }
 }
 @media (max-width: 480px){

@@ -1,6 +1,6 @@
 import { db } from './inicializador-firebase.js'; // Importando a instância do Firebase
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { collection, addDoc, setDoc, doc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword, updateProfile} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
 const auth = getAuth();
 
@@ -20,6 +20,15 @@ document.getElementById("register-form").addEventListener("submit", async (e) =>
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
         const user = userCredential.user;
+
+        await updateProfile(user, {
+            displayName: name
+        });
+
+        await setDoc(doc(db, "usuarios", user.uid), {
+            nome: name,
+            email: email
+        });
 
         await addDoc(collection(db, "usuarios"),{
             uid: user.uid,

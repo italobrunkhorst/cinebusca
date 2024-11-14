@@ -1,0 +1,54 @@
+#container{
+    display: flex;
+    justify-content: flex-start;
+}
+#button-content{
+    box-shadow:  2px 0 8px rgb(0, 0, 0, 0.2);
+    width: 10%;
+    height: 100vh;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+#perfil-content{
+    box-shadow:  2px 0 8px rgb(0, 0, 0, 0.2);
+    width: 45%;
+    height: 100vh;
+    padding: 10px;
+}
+#favorit-content{
+    width: 45%;
+    height: 100vh;
+    padding: 10px;
+}
+#logout-btn{
+    margin-top: auto;
+    color: white;
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+}
+#reset-name{
+    color: black;
+    background-color: darkgray;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+}
+#reset-password{
+    color: black;
+    background-color: darkgray;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+}
+@media (max-width: 760px){
+    #button-content{
+        width: 25%;
+    }
+}
