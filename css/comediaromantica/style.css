@@ -83,13 +83,26 @@ p{
     text-align: center;
 }
 .favorito-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     font-size: 1.2em;
     padding: 0 3px;
     border: 2px black solid;
     background-color: rgb(217, 192, 192);
     cursor: pointer;
-    color: white;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.favorito-btn:hover {
+    background-color: rgb(200, 180, 180); /* Muda a cor ao passar o mouse */
+    transform: scale(1.1); /* Efeito de zoom */
+}
+.favorit-img{
+    width: 20px;
+    height: 20px;
 }
 @media (max-width: 768px){
     h1{

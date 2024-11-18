@@ -1,37 +1,15 @@
 import { getAuth, signOut, onAuthStateChanged, updateProfile, updatePassword, reauthenticateWithCredential, EmailAuthProvider} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import {doc, updateDoc, setDoc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import {doc, updateDoc, setDoc, getDoc, deleteDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import { db } from './inicializador-firebase.js';
 
 const auth = getAuth();
-
-document.addEventListener("DOMContentLoaded", () => {
-    
-    // Verificar se o usuário está logado
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            // Esconder o botão "entrar" e mostrar "perfil"
-            document.getElementById("entrar").style.display = "none";
-            document.getElementById("perfil").style.display = "block";
-            
-            // Configurar o botão de logout
-            const logoutButton = document.getElementById("logout-btn");
-            if (logoutButton) {
-                logoutButton.addEventListener("click", async () => {
-                    await signOut(auth);
-                    alert("Logout realizado com sucesso!");
-                    window.location.href = "../index.html";
-                });
-            }
-        }
-    });
-});
 
 /*função para esconder ou mostrar os botão de entrar e perfil*/
 document.addEventListener("DOMContentLoaded", () => {
     
     const entrarButton = document.getElementById("entrar");
     const perfilButton = document.getElementById("perfil");
-    const logoutButton = document.getElementById("logout");
+    const logoutButton = document.getElementById("logout-btn");
 
     const auth = getAuth();
 
@@ -188,19 +166,21 @@ document.addEventListener("DOMContentLoaded", () =>{
     });
 });
 
+//botão de favoritar filme
 document.querySelectorAll(".favorito-btn").forEach((button) => {
-    const movieTitle = button.previousElementSibling.textContent; // Obtém o título do filme
+    const movieTitle = button.previousElementSibling.textContent;
+    const movieImage = button.parentElement.nextElementSibling.src; // Obtém a URL da imagem
+    const movieURL = window.location.pathname + "#" + button.closest(".corpo").id; // Define a URL do filme com o id
 
-    // Verifica se o filme está nos favoritos ao carregar a página
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             const docRef = doc(db, "usuarios", user.uid, "favoritos", movieTitle);
             const docSnap = await getDoc(docRef);
 
-            // Se o filme estiver favoritado, altera o botão para vermelho
             if (docSnap.exists()) {
                 button.classList.add("favoritado");
-                button.style.color = "red";
+                button.querySelector("img:nth-child(1)").style.display = "none";
+                button.querySelector("img:nth-child(2)").style.display = "inline";
             }
         }
     });
@@ -212,18 +192,101 @@ document.querySelectorAll(".favorito-btn").forEach((button) => {
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
-                // Remove dos favoritos
                 await deleteDoc(docRef);
                 button.classList.remove("favoritado");
-                button.style.color = "white"; // Volta a cor do coração para preto
+                button.querySelector("img:nth-child(1)").style.display = "inline";
+                button.querySelector("img:nth-child(2)").style.display = "none";
+                
             } else {
-                // Adiciona aos favoritos
-                await setDoc(docRef, { titulo: movieTitle });
+                await setDoc(docRef, { 
+                    titulo: movieTitle, 
+                    imagem: movieImage, 
+                    url: movieURL 
+                });
                 button.classList.add("favoritado");
-                button.style.color = "red"; // Muda a cor do coração para vermelho
+                button.querySelector("img:nth-child(1)").style.display = "none";
+                button.querySelector("img:nth-child(2)").style.display = "inline";
             }
         } else {
             alert("Por favor, faça login para favoritar filmes.");
+        }
+    });
+});
+
+// Quando o botão "Filmes Favoritos" for clicado
+
+document.addEventListener("DOMContentLoaded", () => {
+    const resetNameButton = document.getElementById("reset-name");
+    const resetPasswordButton = document.getElementById("reset-password");
+    const favoritosButton = document.getElementById("favorit");
+    const perfilContent = document.getElementById("perfil-content");
+
+    // Função para limpar o conteúdo da div perfil-content
+    function clearPerfilContent() {
+        perfilContent.innerHTML = '';
+    }
+
+    resetNameButton.addEventListener("click", () => {
+        clearPerfilContent();
+
+        const nameContainer = document.createElement("div");
+        nameContainer.id = "edit-name-container";
+        nameContainer.innerHTML = `
+            <input type="text" id="new-name" placeholder="Digite o novo nome" />
+            <div class="button-container">
+                <button id="save-name">Salvar Usuario</button>
+                <button id="cancel-name">Cancelar</button>
+            </div>
+        `;
+        
+        perfilContent.appendChild(nameContainer);
+    });
+
+    resetPasswordButton.addEventListener("click", () => {
+        clearPerfilContent();
+
+        const passwordContainer = document.createElement("div");
+        passwordContainer.id = "edit-password-container";
+        passwordContainer.innerHTML = `
+            <input type="password" id="new-password" placeholder="Nova senha" required>
+            <input type="password" id="confirm-new-password" placeholder="Confirme a nova senha" required>
+            <div class="button-container">
+                <button id="save-password">Salvar Senha</button>
+                <button id="cancel-password">Cancelar</button>
+            </div>
+        `;
+        
+        perfilContent.appendChild(passwordContainer);
+    });
+
+    favoritosButton.addEventListener("click", async () => {
+        clearPerfilContent();
+
+        const user = auth.currentUser;
+        if (user) {
+            const favoritosContainer = document.createElement("div");
+            favoritosContainer.id = "favoritos-container";
+            favoritosContainer.classList.add("favoritos-container");
+
+            // Consulta os favoritos do usuário no banco de dados
+            const favoritosQuerySnapshot = await getDocs(collection(db, "usuarios", user.uid, "favoritos"));
+            favoritosQuerySnapshot.forEach((doc) => {
+                const { titulo, imagem, url } = doc.data();
+                
+                const favoritoItem = document.createElement("div");
+                favoritoItem.classList.add("favorito-item");
+                favoritoItem.innerHTML = `
+                    <a href="${url}" class="favorito-link">
+                        <img src="${imagem}" alt="${titulo}" class="favorito-img"/>
+                        <h4>${titulo}</h4>
+                    </a>
+                `;
+                favoritosContainer.appendChild(favoritoItem);
+            });
+
+            perfilContent.appendChild(favoritosContainer);
+        } else {
+            alert("Por favor, faça login para visualizar seus favoritos.");
         }
     });
 });

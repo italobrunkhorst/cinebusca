@@ -5,22 +5,89 @@
 #button-content{
     box-shadow:  2px 0 8px rgb(0, 0, 0, 0.2);
     width: 10%;
-    height: 100vh;
     padding: 10px;
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 #perfil-content{
-    box-shadow:  2px 0 8px rgb(0, 0, 0, 0.2);
-    width: 45%;
-    height: 100vh;
-    padding: 10px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border: 2px solid red;
+    padding: 50px;
+    flex-wrap: wrap;
 }
-#favorit-content{
-    width: 45%;
-    height: 100vh;
+#edit-name-container{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+#edit-name-container input{
+    width: 300px;
     padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.button-container{
+    display: flex;
+    justify-items: center;
+    gap: 20px;
+}
+#edit-name-container button{
+    width: 130px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    background-color: #007acc;
+    transition: background-color 0.3s, transform 0.2s;
+    cursor: pointer;
+    font-size: 1em;
+}
+#save-name:hover{
+    background-color: rgb(0, 195, 0);
+    transform: scale(1.05);
+}
+#cancel-name:hover{
+    background-color: red;
+    transform: scale(1.05);
+}
+#edit-password-container{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+#edit-password-container input{
+    width: 300px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.button-container{
+    display: flex;
+    justify-items: center;
+    gap: 20px;
+}
+#edit-password-container button{
+    width: 130px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    background-color: #007acc;
+    transition: background-color 0.3s, transform 0.2s;
+    cursor: pointer;
+    font-size: 1em;
+}
+#save-password:hover{
+    background-color: rgb(0, 195, 0);
+    transform: scale(1.05);
+}
+#cancel-password:hover{
+    background-color: red;
+    transform: scale(1.05);
 }
 #logout-btn{
     margin-top: auto;
@@ -31,21 +98,69 @@
     cursor: pointer;
     padding: 10px;
 }
+#logout-btn:hover{
+    transform: scale(1.05);
+}
 #reset-name{
     color: black;
-    background-color: darkgray;
+    background-color: #007acc;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     padding: 10px;
 }
+#reset-name:hover{
+    transform: scale(1.05);
+}
 #reset-password{
     color: black;
-    background-color: darkgray;
+    background-color: #007acc;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     padding: 10px;
+}
+#reset-password:hover{
+    transform: scale(1.05);
+}
+#favorit{
+    color: black;
+    background-color: #007acc;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+}
+#favorit:hover{
+    transform: scale(1.05);
+}
+.favoritos-container {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 15px; 
+    justify-content: flex-start; 
+}
+.favorito-item {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    text-align: center; 
+    width: 100px; 
+}
+.favorito-img {
+    width: 100%;
+    height: 150px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+.favorito-img:hover {
+    transform: scale(1.05);
+}
+.favorito-link h4 {
+    margin-top: 8px;
+    font-size: 14px; 
+    text-decoration: none; 
 }
 @media (max-width: 760px){
     #button-content{

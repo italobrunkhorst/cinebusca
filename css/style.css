@@ -40,6 +40,10 @@ header{
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
+    text-shadow: 0 0 10px cyan,
+    0 0 20px cyan,
+    0 0 40px cyan,
+    0 0 80px cyan;
 }
 h2, #dropdown{
     margin: 0;

@@ -35,6 +35,7 @@ document.getElementById("search-btn").addEventListener("click", () => {
     const searchTerm = document.getElementById("search-input").value;
     searchMovies(searchTerm);
 });
+
 // Função para buscar filmes com base no termo de pesquisa
 async function searchMovies(searchTerm) {
     const searchTermLower = searchTerm.toLowerCase();
