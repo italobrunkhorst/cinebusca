@@ -219,7 +219,9 @@ h2, #dropdown{
         width: 80px;
     }
     .movie img{
+        border: 2px red solid;
         height: 150px;
+        margin: 5px 0;
     }
     .movie a{
         color: blue;
