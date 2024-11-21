@@ -1,6 +1,8 @@
 #container{
     display: flex;
     justify-content: flex-start;
+    height: auto;
+    align-self: stretch;
 }
 #button-content{
     box-shadow:  2px 0 8px rgb(0, 0, 0, 0.2);
@@ -9,19 +11,22 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+    min-height: 72vh;
 }
 #perfil-content{
     display: flex;
     justify-content: center;
-    width: 100%;
-    border: 2px solid red;
+    align-items: center;
+    width: 90%;
     padding: 50px;
     flex-wrap: wrap;
+    height: auto;
 }
 #edit-name-container{
     flex-direction: column;
     display: flex;
     align-items: center;
+    height: 55vh;
 }
 #edit-name-container input{
     width: 300px;
@@ -30,15 +35,10 @@
     font-size: 1em;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.button-container{
-    display: flex;
-    justify-items: center;
-    gap: 20px;
-}
 #edit-name-container button{
     width: 130px;
     padding: 10px;
-    margin: 10px;
+    margin: 10px 5px;
     border: 1px solid #ccc;
     background-color: #007acc;
     transition: background-color 0.3s, transform 0.2s;
@@ -57,6 +57,7 @@
     flex-direction: column;
     display: flex;
     align-items: center;
+    height: 55vh;
 }
 #edit-password-container input{
     width: 300px;
@@ -69,12 +70,11 @@
 .button-container{
     display: flex;
     justify-items: center;
-    gap: 20px;
+    gap: 15px;
 }
 #edit-password-container button{
     width: 130px;
     padding: 10px;
-    margin: 10px;
     border: 1px solid #ccc;
     background-color: #007acc;
     transition: background-color 0.3s, transform 0.2s;
@@ -118,7 +118,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    padding: 10px;
+    padding:11px;
 }
 #reset-password:hover{
     transform: scale(1.05);
@@ -162,8 +162,86 @@
     font-size: 14px; 
     text-decoration: none; 
 }
-@media (max-width: 760px){
+@media (max-width: 768px){
+    #button-content{
+        width: 15%;
+    }
+    #reset-name{
+        padding: 7px;
+        font-size: 15px;
+    }
+    #reset-password{
+        padding: 7px;
+        font-size: 15px;
+    }
+    #favorit{
+        padding: 7px;
+        font-size: 15px;
+    }
+    #perfil-content{
+        padding: 20px;
+    }
+    .favorito-item {
+        width: 90px; 
+    }
+    .favorito-img {
+        height: 130px;
+    }
+    .favorito-link h4 {
+        font-size: 15px; 
+    }
+}
+@media (max-width: 480px){
     #button-content{
         width: 25%;
+    }
+    #button-content h5{
+        font-size: 10px;
+    }
+    #reset-name{
+        padding: 7px;
+        font-size: 11px;
+    }
+    #reset-password{
+        padding: 7px;
+        font-size: 11px;
+    }
+    #favorit{
+        padding: 7px;
+        font-size: 11px;
+    }
+    #perfil-content{
+        padding: 10px;
+    }
+    .favorito-item {
+        width: 60px; 
+    }
+    .favorito-img {
+        height: 100px;
+    }
+    .favorito-link h4 {
+        font-size: 11px; 
+    }
+    #edit-name-container input{
+        width: 170px;
+        padding: 8px;
+        font-size: 11px;
+    }
+    #edit-name-container button{
+        width: 70px;
+        padding: 5px;
+        font-size: 11px;
+        margin: 10px 15px 0px 0px;
+    }
+    #edit-password-container input{
+        width: 175px;
+        padding: 8px;
+        font-size: 11px;
+    }
+    #edit-password-container button{
+        width: 70px;
+        padding: 5px;
+        font-size: 11px;
+        margin: 10px 10px;
     }
 }

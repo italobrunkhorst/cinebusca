@@ -46,6 +46,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const userNameElement = document.getElementById("user-name"); 
     const resetNameButton = document.getElementById("reset-name");
     const editNameContainer = document.getElementById("edit-name-container");
+    const editPasswordContainer = document.getElementById("edit-password-container");
+    const favoritosContainer = document.getElementById("favoritos-container");
     const newNameInput = document.getElementById("new-name");
     const saveNameButton = document.getElementById("save-name");
     const cancelNameButton = document.getElementById("cancel-name");
@@ -59,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 try {
                     const userDoc = await getDoc(doc(db, "usuarios", user.uid)); 
                     if (userDoc.exists()) {
+                        
                         userName = userDoc.data().nome; 
                     }
                 } catch (error) {
@@ -74,12 +77,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Exibir o campo de input para redefinir usuario
     resetNameButton.addEventListener("click", () => {
-        editNameContainer.style.display = "block"; // Mostrar o campo de edição
-        newNameInput.value = ""; // Limpar o campo de input
+        editNameContainer.style.display = "block";
+        editPasswordContainer.style.display = "none";
+        removeElementById("favoritos-container");
     });
 
     // Salvar o novo usuario
     saveNameButton.addEventListener("click", async () => {
+        
         const newName = newNameInput.value.trim();
         if (newName) {
             const user = auth.currentUser;
@@ -88,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     // Atualizar o nome no Firebase Authentication
                     await updateProfile(user, { displayName: newName });
                     // Atualizar o nome no Firestore
+                    console.log("não encontro")
                     await updateDoc(doc(db, "usuarios", user.uid), {
                         nome: newName
                     });
@@ -118,6 +124,8 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () =>{
     const resetPasswordButton = document.getElementById("reset-password");
     const editPasswordContainer = document.getElementById("edit-password-container");
+    const editNameContainer = document.getElementById("edit-name-container");
+    const favoritosContainer = document.getElementById("favoritos-container");
     const newPasswordInput = document.getElementById("new-password");
     const confirmNewPasswordInput = document.getElementById("confirm-new-password");
     const savePasswordButton = document.getElementById("save-password");
@@ -125,6 +133,8 @@ document.addEventListener("DOMContentLoaded", () =>{
 
     resetPasswordButton.addEventListener("click", () => {
         editPasswordContainer.style.display = "block";
+        editNameContainer.style.display = "none";
+        removeElementById("favoritos-container");
         newPasswordInput.value = "";
         confirmNewPasswordInput.value = "";
     });
@@ -165,6 +175,54 @@ document.addEventListener("DOMContentLoaded", () =>{
         editPasswordContainer.style.display = "none";
     });
 });
+
+// Quando o botão "Filmes Favoritos" for clicado
+document.addEventListener("DOMContentLoaded", () => {
+    const favoritosButton = document.getElementById("favorit");
+    const perfilContent = document.getElementById("perfil-content");
+    const editPasswordContainer = document.getElementById("edit-password-container");
+    const editNameContainer = document.getElementById("edit-name-container");
+
+    favoritosButton.addEventListener("click", async () => {
+        editPasswordContainer.style.display = "none";
+        editNameContainer.style.display = "none";
+    
+        const user = auth.currentUser;
+        if (user) {
+            const favoritosContainer = document.createElement("div");
+            favoritosContainer.id = "favoritos-container";
+            favoritosContainer.classList.add("favoritos-container");
+
+            // Consulta os favoritos do usuário no banco de dados
+            const favoritosQuerySnapshot = await getDocs(collection(db, "usuarios", user.uid, "favoritos"));
+            favoritosQuerySnapshot.forEach((doc) => {
+                const { titulo, imagem, url } = doc.data();
+                
+                const favoritoItem = document.createElement("div");
+                favoritoItem.classList.add("favorito-item");
+                favoritoItem.innerHTML = `
+                    <a href="${url}" class="favorito-link">
+                        <img src="${imagem}" alt="${titulo}" class="favorito-img"/>
+                        <h4>${titulo}</h4>
+                    </a>
+                `;
+                favoritosContainer.appendChild(favoritoItem);
+            });
+
+            perfilContent.appendChild(favoritosContainer);
+        } else {
+            alert("Por favor, faça login para visualizar seus favoritos.");
+        }
+    });
+});
+
+// Função utilitária para remover elementos pelo ID
+function removeElementById(elementId) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.remove();
+    }
+}
 
 //botão de favoritar filme
 document.querySelectorAll(".favorito-btn").forEach((button) => {
@@ -209,84 +267,6 @@ document.querySelectorAll(".favorito-btn").forEach((button) => {
             }
         } else {
             alert("Por favor, faça login para favoritar filmes.");
-        }
-    });
-});
-
-// Quando o botão "Filmes Favoritos" for clicado
-
-document.addEventListener("DOMContentLoaded", () => {
-    const resetNameButton = document.getElementById("reset-name");
-    const resetPasswordButton = document.getElementById("reset-password");
-    const favoritosButton = document.getElementById("favorit");
-    const perfilContent = document.getElementById("perfil-content");
-
-    // Função para limpar o conteúdo da div perfil-content
-    function clearPerfilContent() {
-        perfilContent.innerHTML = '';
-    }
-
-    resetNameButton.addEventListener("click", () => {
-        clearPerfilContent();
-
-        const nameContainer = document.createElement("div");
-        nameContainer.id = "edit-name-container";
-        nameContainer.innerHTML = `
-            <input type="text" id="new-name" placeholder="Digite o novo nome" />
-            <div class="button-container">
-                <button id="save-name">Salvar Usuario</button>
-                <button id="cancel-name">Cancelar</button>
-            </div>
-        `;
-        
-        perfilContent.appendChild(nameContainer);
-    });
-
-    resetPasswordButton.addEventListener("click", () => {
-        clearPerfilContent();
-
-        const passwordContainer = document.createElement("div");
-        passwordContainer.id = "edit-password-container";
-        passwordContainer.innerHTML = `
-            <input type="password" id="new-password" placeholder="Nova senha" required>
-            <input type="password" id="confirm-new-password" placeholder="Confirme a nova senha" required>
-            <div class="button-container">
-                <button id="save-password">Salvar Senha</button>
-                <button id="cancel-password">Cancelar</button>
-            </div>
-        `;
-        
-        perfilContent.appendChild(passwordContainer);
-    });
-
-    favoritosButton.addEventListener("click", async () => {
-        clearPerfilContent();
-
-        const user = auth.currentUser;
-        if (user) {
-            const favoritosContainer = document.createElement("div");
-            favoritosContainer.id = "favoritos-container";
-            favoritosContainer.classList.add("favoritos-container");
-
-            // Consulta os favoritos do usuário no banco de dados
-            const favoritosQuerySnapshot = await getDocs(collection(db, "usuarios", user.uid, "favoritos"));
-            favoritosQuerySnapshot.forEach((doc) => {
-                const { titulo, imagem, url } = doc.data();
-                
-                const favoritoItem = document.createElement("div");
-                favoritoItem.classList.add("favorito-item");
-                favoritoItem.innerHTML = `
-                    <a href="${url}" class="favorito-link">
-                        <img src="${imagem}" alt="${titulo}" class="favorito-img"/>
-                        <h4>${titulo}</h4>
-                    </a>
-                `;
-                favoritosContainer.appendChild(favoritoItem);
-            });
-
-            perfilContent.appendChild(favoritosContainer);
-        } else {
-            alert("Por favor, faça login para visualizar seus favoritos.");
         }
     });
 });

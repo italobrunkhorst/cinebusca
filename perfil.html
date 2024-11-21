@@ -29,15 +29,28 @@
     </header>
     <div id="container">
         <div id="button-content">
+            <h5 id="user-name"></h5>
             <button id="reset-name">Redefinir Usuario</button>
             <button id="reset-password">Redefinir Senha</button>
             <button id="favorit">Filmes Favoritos</button>
             <button id="logout-btn">Sair</button> 
         </div>
         <div id="perfil-content">
-            <h3 id="user-name"></h3>
-            <div id="edit-name-container" style="display: none;"></div>
-            <div id="edit-password-container" style="display: none;"></div>
+            <div id="edit-name-container" style="display: none;">
+                <input type="text" id="new-name" placeholder="Digite o novo nome" />
+                <div class="button-container">
+                    <button id="save-name">Salvar Usuario</button>
+                    <button id="cancel-name">Cancelar</button>
+                </div>
+            </div>
+            <div id="edit-password-container" style="display: none;">
+                <input type="password" id="new-password" placeholder="Nova senha" required>
+                <input type="password" id="confirm-new-password" placeholder="Confirme a nova senha" required>
+                <div class="button-container">
+                    <button id="save-password">Salvar Senha</button>
+                    <button id="cancel-password">Cancelar</button>
+                </div>
+            </div>
             <div id="favoritos-container" style="display: none;"></div>
         </div>
     </div>

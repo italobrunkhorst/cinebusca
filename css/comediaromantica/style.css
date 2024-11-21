@@ -57,6 +57,7 @@ p{
     list-style: none;
     background-color: white;
     margin: 0 10%;
+    padding: 30px;
 }
 .link_page{
     text-decoration: none;
@@ -137,7 +138,7 @@ p{
     .page {
         align-items: center;
         gap: 3px;
-        padding: 5px;
+        padding: 20px 5px;
     }
     .link_page{
         padding: 5px;
