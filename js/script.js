@@ -80,8 +80,11 @@ function displayMovies(movies) {
         movieDiv.classList.add("movie");
 
         movieDiv.innerHTML = `
-            <img src="${movie.imageUrl}" class="movie-img"/>
-            <a href="${movie.url}">${movie.title}</a>
+            
+            <a href="${movie.url}">
+                <img src="${movie.imageUrl}" class="movie-img"/>
+                ${movie.title}
+            </a>
         `;
 
         resultsContainer.appendChild(movieDiv);

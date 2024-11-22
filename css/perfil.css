@@ -21,80 +21,71 @@
     justify-content: center;
     align-items: center;
     width: 90%;
-    padding: 50px;
     flex-wrap: wrap;
     height: auto;
     min-height: 72vh;
 }
-#edit-name-container{
+#edit-name-container,
+#edit-password-container{
+    width: 50%;
+    background-color: #f9f9f9;
+    border: 2px solid #007acc;
+    border-radius: 10px;
     flex-direction: column;
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 55vh;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    transition: transform 0.2s;
 }
-#edit-name-container input{
-    width: 300px;
-    padding: 10px;
-    border: 1px solid #ccc;
+#edit-name-container:hover,
+#edit-password-containre:hover{
+    transform: scale(1.02);
+}
+#edit-name-container input,
+#edit-password-container input{
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     font-size: 1em;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s;
 }
-#edit-name-container button{
-    width: 130px;
-    padding: 10px;
-    margin: 10px 5px;
-    border: 1px solid #ccc;
-    background-color: #007acc;
-    transition: background-color 0.3s, transform 0.2s;
-    cursor: pointer;
-    font-size: 1em;
+#edit-name-container input:focus,
+#edit-password-container input:focus{
+    border-color: #007acc;
+    outline: none;
 }
-#save-name:hover{
-    background-color: rgb(0, 195, 0);
-    transform: scale(1.05);
-}
-#cancel-name:hover{
-    background-color: red;
-    transform: scale(1.05);
-}
-#edit-password-container{
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 55vh;
-}
-#edit-password-container input{
-    display: flex;
-    justify-content: center;
-    width: 300px;
+#edit-name-container button,
+#edit-password-container button {
+    width: 150px;
     padding: 10px;
     margin: 10px;
-    border: 1px solid #ccc;
-    font-size: 1em;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.button-container{
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-#edit-password-container button{
-    width: 130px;
-    padding: 10px;
-    border: 1px solid #ccc;
+    border: none;
+    border-radius: 8px;
     background-color: #007acc;
-    transition: background-color 0.3s, transform 0.2s;
-    cursor: pointer;
+    color: white;
     font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.2s;
 }
+#edit-name-container button:hover,
+#edit-password-container button:hover{
+    transform: scale(1.05);
+}
+#save-name:hover,
 #save-password:hover{
-    background-color: rgb(0, 195, 0);
-    transform: scale(1.05);
+    background-color: #28a745;
 }
+#cancel-name:hover,
 #cancel-password:hover{
-    background-color: red;
-    transform: scale(1.05);
+    background-color: #c82333;
 }
 #logout-btn{
     margin-top: auto;
@@ -145,14 +136,15 @@
     display: flex;
     flex-wrap: wrap; 
     gap: 15px; 
-    justify-content: center; 
+    justify-content: center;
+    padding: 15px 0;
 }
 .favorito-item {
     display: flex;
     flex-direction: column; 
     align-items: center;
     text-align: center; 
-    width: 100px; 
+    width: 100px;
 }
 .favorito-img {
     width: 100%;
@@ -164,7 +156,7 @@
 .favorito-img:hover {
     transform: scale(1.05);
 }
-.favorito-link,  h4 {
+.favorito-link,  h3 {
     color: blue;
     margin-top: 8px;
     font-size: 14px;
@@ -231,29 +223,38 @@
     .favorito-img {
         height: 100px;
     }
-    .favorito-link h4 {
+    .favorito-link h3 {
         font-size: 11px; 
     }
-    #edit-name-container input{
-        width: 170px;
+    #edit-name-container,
+    #edit-password-container {
+        width: 90%;
+        height: auto;
+        padding: 15px;
+        border-width: 1px;
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+    }
+    #edit-name-container input,
+    #edit-password-container input {
+        width: 100%;
         padding: 8px;
-        font-size: 11px;
+        font-size: 0.9em;
     }
-    #edit-name-container button{
-        width: 70px;
-        padding: 5px;
-        font-size: 11px;
-        margin: 10px 15px 0px 0px;
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        gap: 10px;
+        width: 100%; 
     }
-    #edit-password-container input{
-        width: 175px;
+    #edit-name-container button,
+    #edit-password-container button {
+        width: 80%; 
+        font-size: 0.85em;
         padding: 8px;
-        font-size: 11px;
-    }
-    #edit-password-container button{
-        width: 70px;
-        padding: 5px;
-        font-size: 11px;
-        margin: 10px 10px;
+        margin: 5px 0;
+        text-align: center;
     }
 }

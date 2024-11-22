@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 favoritoItem.innerHTML = `
                     <a href="${url}" class="favorito-link">
                         <img src="${imagem}" alt="${titulo}" class="favorito-img"/>
-                        <h4>${titulo}</h4>
+                        <h3>${titulo}</h3>
                     </a>
                 `;
                 favoritosContainer.appendChild(favoritoItem);

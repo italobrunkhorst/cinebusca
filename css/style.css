@@ -17,6 +17,7 @@ header{
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1;
 }
 #cabecalho{
     display: flex;
@@ -107,6 +108,9 @@ h2, #dropdown{
     width: 150px;
     flex-shrink: 0;
 }
+.movie:hover{
+    transform: scale(1.05);
+}
 .movie img{
     width: 100%;
     height: 225px;
@@ -117,6 +121,7 @@ h2, #dropdown{
     color: blue;
     margin: 8px 0 0;
     font-size: 14px;
+    text-decoration: none;
 }
 #corpo{
     background-color: white;
@@ -151,6 +156,46 @@ h2, #dropdown{
 #icon_perfil{
     width: 20px;
     height: 20px;
+}
+#search-input {
+    width: 70%;
+    max-width: 400px;
+    padding: 10px 15px;
+    font-size: 1em;
+    border: 2px solid #007acc;
+    border-radius: 25px 0 0 25px;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+#search-input:focus {
+    border-color: #005f99;
+    box-shadow: 0 0 8px rgba(0, 123, 204, 0.5);
+}
+#search-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #007acc;
+    color: white;
+    border: 2px solid #007acc;
+    border-radius: 0 25px 25px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+#search-btn:hover {
+    background-color: #005f99;
+    transform: scale(1.05);
+}
+#search-btn:active {
+    background-color: #004d80;
+    transform: scale(1);
+}
+#search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    margin: 20px 0;
 }
 @media (max-width: 768px) {
     #cabecalho {
@@ -219,7 +264,6 @@ h2, #dropdown{
         width: 80px;
     }
     .movie img{
-        border: 2px red solid;
         height: 150px;
         margin: 5px 0;
     }
@@ -233,5 +277,13 @@ h2, #dropdown{
     }
     #footer_home{
         height: 115px;
+    }
+    #search-input {
+        width: 67%;
+        font-size: 0.9em;
+    }
+    #search-btn {
+        font-size: 0.9em;
+        padding: 10px 15px;
     }
 }
