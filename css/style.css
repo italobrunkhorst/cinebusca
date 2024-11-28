@@ -9,6 +9,9 @@ body{
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-image: url('../img/CineBusca.png');
+
+    margin: 0;
 }
 header{
     background-color: black;
@@ -129,7 +132,12 @@ h2, #dropdown{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 2%;
+    margin: 0;
+}
+#corpo p{
+    padding: 50px;
+    border: 2px red solid;
+    margin: 50px;
 }
 #cadastro{
     display: flex;
@@ -196,6 +204,42 @@ h2, #dropdown{
     align-items: center;
     gap: 0;
     margin: 20px 0;
+}
+
+#sorteio {
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 600px;
+}
+#sorteio h3 {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    color: #333;
+}
+#sorteio-filmes {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.filme-sorteado {
+    width: 150px;
+    text-align: center;
+}
+.filme-sorteado img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.filme-sorteado p {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #555;
 }
 @media (max-width: 768px) {
     #cabecalho {

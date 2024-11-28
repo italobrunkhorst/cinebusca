@@ -1,3 +1,6 @@
+import { db } from './inicializador-firebase.js'; // Importando a instância do Firebase
+import { getDoc, collection, getDocs, query, where, setDoc, doc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
 document.querySelectorAll('.buttonvermais').forEach(button => {
 
     button.addEventListener('click', function() {
@@ -21,9 +24,6 @@ document.querySelectorAll('.buttonvermais').forEach(button => {
     });
 });
 
-
-import { db } from './inicializador-firebase.js'; // Importando a instância do Firebase
-import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 function normalizeString(str) {
     return str
         .normalize("NFD") // Decompor os caracteres em partes (e.g., "é" se torna "e" + acento)
@@ -92,3 +92,77 @@ function displayMovies(movies) {
 }
 
 export { searchMovies };
+
+document.addEventListener("DOMContentLoaded", async function () {
+    const sorteioContainer = document.getElementById("sorteio-filmes");
+
+    async function obterFilmesDoFirebase() {
+        const filmesCol = collection(db, "filmes");
+        const filmesSnapshot = await getDocs(filmesCol);
+        return filmesSnapshot.docs.map((doc) => doc.data());
+    }
+
+    function getSemanaAtual() {
+        const hoje = new Date();
+        const primeiroDiaAno = new Date(hoje.getFullYear(), 0, 1);
+        const dias = Math.floor((hoje - primeiroDiaAno) / (24 * 60 * 60 * 1000));
+        return hoje.getFullYear() + "-" + Math.ceil(dias / 7);
+    }
+
+    function sortearFilmes(filmes, quantidade) {
+        const filmesSorteados = [];
+        const indicesEscolhidos = new Set();
+
+        while (filmesSorteados.length < quantidade && indicesEscolhidos.size < filmes.length) {
+            const indiceAleatorio = Math.floor(Math.random() * filmes.length);
+            if (!indicesEscolhidos.has(indiceAleatorio)) {
+                filmesSorteados.push(filmes[indiceAleatorio]);
+                indicesEscolhidos.add(indiceAleatorio);
+            }
+        }
+        return filmesSorteados;
+    }
+
+    async function salvarFilmesSorteados(filmesSorteados, semanaAtual) {
+        const sorteioRef = doc(db, "sorteios", semanaAtual);
+        await setDoc(sorteioRef, { filmes: filmesSorteados });
+    }
+
+    async function obterFilmesSorteados(semanaAtual) {
+        const sorteioRef = doc(db, "sorteios", semanaAtual);
+        const snapshot = await getDoc(sorteioRef);
+        return snapshot.exists() ? snapshot.data().filmes : null;
+    }
+
+    function exibirFilmesSorteados(filmesSorteados) {
+        sorteioContainer.innerHTML = "";
+        filmesSorteados.forEach((filme) =>{
+            const filmeDiv = document.createElement("div");
+            filmeDiv.classList.add("movie");
+
+            filmeDiv.innerHTML = `
+                <a href="${filme.url}">
+                    <img src="${filme.imageUrl}" alt="${filme.title}" />
+                    <h3>${filme.title}</h3>
+                </a>
+                
+            `;
+            sorteioContainer.appendChild(filmeDiv);
+        });
+    }
+
+    async function gerenciarSorteio() {
+        const semanaAtual = getSemanaAtual();
+        let filmesSorteados = await obterFilmesSorteados(semanaAtual);
+
+        if (!filmesSorteados) {
+            const filmes = await obterFilmesDoFirebase();
+            filmesSorteados = sortearFilmes(filmes, 5);
+            await salvarFilmesSorteados(filmesSorteados, semanaAtual);
+        }
+
+        exibirFilmesSorteados(filmesSorteados);
+    }
+
+    gerenciarSorteio();
+});
