@@ -3,9 +3,27 @@
 }
 body{
     font-family: 'Times New Roman';
-    background-color: f2f2f2;
-    background-image: url('../../img/Wallpaper\ notebook.jfif');
-
+    background-color: #f2f2f2;
+}
+#page1{
+    background-image: url('../../img/comedia-romantica.page1.png');
+    background-position: 0 70px;
+}
+#page2{
+    background-image: url('../../img/comedia-romantica.page2.png');
+    background-position: 0 70px;
+}
+#page3{
+    background-image: url('../../img/comedia-romantica.page3.png');
+    background-position: 0 70px;
+}
+#page4{
+    background-image: url('../../img/comedia-romantica.page4.png');
+    background-position: 0 70px;
+}
+#page5{
+    background-image: url('../../img/comedia-romantica.page5.png');
+    background-position: 0 70px;
 }
 hr{
     margin: 0 10%;
