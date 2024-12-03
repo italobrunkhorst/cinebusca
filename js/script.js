@@ -95,18 +95,12 @@ export { searchMovies };
 
 document.addEventListener("DOMContentLoaded", async function () {
     const sorteioContainer = document.getElementById("sorteio-filmes");
+    const cronometroContainer = document.getElementById("cronometro");
 
     async function obterFilmesDoFirebase() {
         const filmesCol = collection(db, "filmes");
         const filmesSnapshot = await getDocs(filmesCol);
         return filmesSnapshot.docs.map((doc) => doc.data());
-    }
-
-    function getSemanaAtual() {
-        const hoje = new Date();
-        const primeiroDiaAno = new Date(hoje.getFullYear(), 0, 1);
-        const dias = Math.floor((hoje - primeiroDiaAno) / (24 * 60 * 60 * 1000));
-        return hoje.getFullYear() + "-" + Math.ceil(dias / 7);
     }
 
     function sortearFilmes(filmes, quantidade) {
@@ -123,20 +117,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         return filmesSorteados;
     }
 
-    async function salvarFilmesSorteados(filmesSorteados, semanaAtual) {
-        const sorteioRef = doc(db, "sorteios", semanaAtual);
-        await setDoc(sorteioRef, { filmes: filmesSorteados });
-    }
-
-    async function obterFilmesSorteados(semanaAtual) {
-        const sorteioRef = doc(db, "sorteios", semanaAtual);
-        const snapshot = await getDoc(sorteioRef);
-        return snapshot.exists() ? snapshot.data().filmes : null;
-    }
-
     function exibirFilmesSorteados(filmesSorteados) {
         sorteioContainer.innerHTML = "";
-        filmesSorteados.forEach((filme) =>{
+        filmesSorteados.forEach((filme) => {
             const filmeDiv = document.createElement("div");
             filmeDiv.classList.add("movie");
 
@@ -145,24 +128,53 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <img src="${filme.imageUrl}" alt="${filme.title}" />
                     <h3>${filme.title}</h3>
                 </a>
-                
             `;
             sorteioContainer.appendChild(filmeDiv);
         });
     }
 
-    async function gerenciarSorteio() {
-        const semanaAtual = getSemanaAtual();
-        let filmesSorteados = await obterFilmesSorteados(semanaAtual);
-
-        if (!filmesSorteados) {
-            const filmes = await obterFilmesDoFirebase();
-            filmesSorteados = sortearFilmes(filmes, 5);
-            await salvarFilmesSorteados(filmesSorteados, semanaAtual);
-        }
-
+    async function realizarNovoSorteio() {
+        const filmes = await obterFilmesDoFirebase();
+        const filmesSorteados = sortearFilmes(filmes, 5);
         exibirFilmesSorteados(filmesSorteados);
     }
 
-    gerenciarSorteio();
+    function calcularTempoRestanteAteProximaSemana() {
+        const agora = new Date();
+        const diaDaSemana = agora.getDay(); // 0 = Domingo, 1 = Segunda, ..., 6 = Sábado
+        const diasRestantes = (7 - diaDaSemana) % 7; // Dias até o próximo domingo
+        const proximoDomingo = new Date(
+            agora.getFullYear(),
+            agora.getMonth(),
+            agora.getDate() + diasRestantes,
+            0, 0, 0 // 00:00:00
+        );
+
+        return proximoDomingo - agora; // Tempo restante em milissegundos
+    }
+
+    function iniciarCronometroSemanal() {
+        const atualizarCronometro = () => {
+            const tempoRestante = calcularTempoRestanteAteProximaSemana();
+
+            if (tempoRestante <= 0) {
+                realizarNovoSorteio(); // Faz o sorteio quando o tempo zera
+            }
+
+            const dias = Math.floor(tempoRestante / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((tempoRestante % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((tempoRestante % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((tempoRestante % (1000 * 60)) / 1000);
+
+            cronometroContainer.textContent = `Próximo sorteio em: ${dias}d ${horas}h ${minutos}m ${segundos}s`;
+
+            setTimeout(atualizarCronometro, 1000); // Atualiza a cada segundo
+        };
+
+        atualizarCronometro();
+    }
+
+    // Sorteio inicial e início do cronômetro semanal
+    await realizarNovoSorteio();
+    iniciarCronometroSemanal();
 });
