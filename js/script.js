@@ -103,6 +103,17 @@ document.addEventListener("DOMContentLoaded", async function () {
         return filmesSnapshot.docs.map((doc) => doc.data());
     }
 
+    async function obterFilmesSorteadosDaSemana(semanaAtual) {
+        const sorteioDoc = doc(db, "sorteios", semanaAtual);
+        const snapshot = await getDoc(sorteioDoc);
+        return snapshot.exists() ? snapshot.data().filmes : null;
+    }
+
+    async function salvarFilmesSorteados(semanaAtual, filmesSorteados) {
+        const sorteioDoc = doc(db, "sorteios", semanaAtual);
+        await setDoc(sorteioDoc, { filmes: filmesSorteados });
+    }
+
     function sortearFilmes(filmes, quantidade) {
         const filmesSorteados = [];
         const indicesEscolhidos = new Set();
@@ -133,12 +144,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
     }
 
-    async function realizarNovoSorteio() {
-        const filmes = await obterFilmesDoFirebase();
-        const filmesSorteados = sortearFilmes(filmes, 5);
-        exibirFilmesSorteados(filmesSorteados);
-    }
-
     function calcularTempoRestanteAteProximaSemana() {
         const agora = new Date();
         const diaDaSemana = agora.getDay(); // 0 = Domingo, 1 = Segunda, ..., 6 = Sábado
@@ -157,10 +162,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         const atualizarCronometro = () => {
             const tempoRestante = calcularTempoRestanteAteProximaSemana();
 
-            if (tempoRestante <= 0) {
-                realizarNovoSorteio(); // Faz o sorteio quando o tempo zera
-            }
-
             const dias = Math.floor(tempoRestante / (1000 * 60 * 60 * 24));
             const horas = Math.floor((tempoRestante % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutos = Math.floor((tempoRestante % (1000 * 60 * 60)) / (1000 * 60));
@@ -174,7 +175,27 @@ document.addEventListener("DOMContentLoaded", async function () {
         atualizarCronometro();
     }
 
-    // Sorteio inicial e início do cronômetro semanal
-    await realizarNovoSorteio();
+    function obterSemanaAtual() {
+        const agora = new Date();
+        const primeiroDiaAno = new Date(agora.getFullYear(), 0, 1);
+        const diasDesdeInicioAno = Math.floor((agora - primeiroDiaAno) / (24 * 60 * 60 * 1000));
+        return agora.getFullYear() + "-" + Math.ceil(diasDesdeInicioAno / 7);
+    }
+
+    async function gerenciarSorteio() {
+        const semanaAtual = obterSemanaAtual();
+
+        let filmesSorteados = await obterFilmesSorteadosDaSemana(semanaAtual);
+
+        if (!filmesSorteados) {
+            const filmes = await obterFilmesDoFirebase();
+            filmesSorteados = sortearFilmes(filmes, 5);
+            await salvarFilmesSorteados(semanaAtual, filmesSorteados);
+        }
+
+        exibirFilmesSorteados(filmesSorteados);
+    }
+
+    await gerenciarSorteio();
     iniciarCronometroSemanal();
 });
