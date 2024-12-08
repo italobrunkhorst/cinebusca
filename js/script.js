@@ -144,34 +144,39 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
     }
 
-    function calcularTempoRestanteAteProximaSemana() {
+    function calcularTempoRestanteAteSabado() {
         const agora = new Date();
-        const diaDaSemana = agora.getDay(); // 0 = Domingo, 1 = Segunda, ..., 6 = Sábado
-        const diasRestantes = (7 - diaDaSemana) % 7; // Dias até o próximo domingo
-        const proximoDomingo = new Date(
+        const diaDaSemana = agora.getDay(); // 0 = Domingo, ..., 6 = Sábado
+        const diasRestantes = diaDaSemana === 6 ? 0 : (6 - diaDaSemana); // Dias até sábado
+        const proximoSabado = new Date(
             agora.getFullYear(),
             agora.getMonth(),
             agora.getDate() + diasRestantes,
-            0, 0, 0 // 00:00:00
+            0, 0, 0 // Meia-noite
         );
-
-        return proximoDomingo - agora; // Tempo restante em milissegundos
+    
+        return proximoSabado - agora; // Tempo restante em milissegundos
     }
 
     function iniciarCronometroSemanal() {
-        const atualizarCronometro = () => {
-            const tempoRestante = calcularTempoRestanteAteProximaSemana();
-
+        const atualizarCronometro = async () => {
+            const tempoRestante = calcularTempoRestanteAteSabado();
+    
+            if (tempoRestante <= 0) {
+                // O cronômetro chegou ao fim, gere um novo sorteio
+                await gerenciarSorteio(); // Realiza um novo sorteio
+            }
+    
             const dias = Math.floor(tempoRestante / (1000 * 60 * 60 * 24));
             const horas = Math.floor((tempoRestante % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutos = Math.floor((tempoRestante % (1000 * 60 * 60)) / (1000 * 60));
             const segundos = Math.floor((tempoRestante % (1000 * 60)) / 1000);
-
+    
             cronometroContainer.textContent = `Próximo sorteio em: ${dias}d ${horas}h ${minutos}m ${segundos}s`;
-
-            setTimeout(atualizarCronometro, 1000); // Atualiza a cada segundo
+    
+            setTimeout(atualizarCronometro, 1000); // Atualiza o cronômetro a cada segundo
         };
-
+    
         atualizarCronometro();
     }
 
