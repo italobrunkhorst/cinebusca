@@ -1,4 +1,4 @@
-import { getAuth, signOut, onAuthStateChanged, updateProfile, updatePassword, reauthenticateWithCredential, EmailAuthProvider} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { getAuth, signOut, onAuthStateChanged, updateProfile, updatePassword, reauthenticateWithCredential, EmailAuthProvider, sendPasswordResetEmail} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import {doc, updateDoc, setDoc, getDoc, deleteDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import { db } from './inicializador-firebase.js';
 
@@ -46,7 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const userNameElement = document.getElementById("user-name"); 
     const resetNameButton = document.getElementById("reset-name");
     const editNameContainer = document.getElementById("edit-name-container");
-    const editPasswordContainer = document.getElementById("edit-password-container");
     const favoritosContainer = document.getElementById("favoritos-container");
     const newNameInput = document.getElementById("new-name");
     const saveNameButton = document.getElementById("save-name");
@@ -78,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Exibir o campo de input para redefinir usuario
     resetNameButton.addEventListener("click", () => {
         editNameContainer.style.display = "block";
-        editPasswordContainer.style.display = "none";
+        favoritosContainer.style.display = "none";
         removeElementById("favoritos-container");
     });
 
@@ -121,58 +120,23 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /*redefinir senha*/
-document.addEventListener("DOMContentLoaded", () =>{
+document.addEventListener("DOMContentLoaded", () => {
     const resetPasswordButton = document.getElementById("reset-password");
-    const editPasswordContainer = document.getElementById("edit-password-container");
-    const editNameContainer = document.getElementById("edit-name-container");
-    const favoritosContainer = document.getElementById("favoritos-container");
-    const newPasswordInput = document.getElementById("new-password");
-    const confirmNewPasswordInput = document.getElementById("confirm-new-password");
-    const savePasswordButton = document.getElementById("save-password");
-    const cancelPasswordButton = document.getElementById("cancel-password");
 
-    resetPasswordButton.addEventListener("click", () => {
-        editPasswordContainer.style.display = "block";
-        editNameContainer.style.display = "none";
-        removeElementById("favoritos-container");
-        newPasswordInput.value = "";
-        confirmNewPasswordInput.value = "";
-    });
-
-    savePasswordButton.addEventListener("click", async () => {
-        
-        const newPassword = newPasswordInput.value;
-        const confirmNewPassword = confirmNewPasswordInput.value;
-
-        if (newPassword !== confirmNewPassword) {
-            alert("As senhas não coincidem!");
-            return;
-        }
-
+    resetPasswordButton.addEventListener("click", async () => {
         try {
             const user = auth.currentUser;
             if (user) {
-                const email = prompt("Por favor, insira seu e-mail para confirmar:");
-                const currentPassword = prompt("Por favor, insira sua senha atual:");
-
-                const credential = EmailAuthProvider.credential(email, currentPassword);
-                await reauthenticateWithCredential(user, credential);
-                
-                // Tenta atualizar a senha do usuário
-                await updatePassword(user, newPassword);
-                alert("Senha atualizada com sucesso!");
-                editPasswordContainer.style.display = "none"; // Limpa os campos após a atualização
+                const email = user.email; // Obtém o e-mail do usuário logado
+                await sendPasswordResetEmail(auth, email);
+                alert("Um e-mail de redefinição de senha foi enviado para: " + email);
             } else {
                 alert("Erro: usuário não está autenticado.");
             }
         } catch (error) {
-            console.error("Erro ao atualizar a senha:", error);
-            alert("Erro ao atualizar a senha: " + error.message);
+            console.error("Erro ao enviar o e-mail de redefinição de senha:", error);
+            alert("Erro ao enviar o e-mail: " + error.message);
         }
-    });
-
-    cancelPasswordButton.addEventListener("click", () => {
-        editPasswordContainer.style.display = "none";
     });
 });
 
@@ -180,11 +144,9 @@ document.addEventListener("DOMContentLoaded", () =>{
 document.addEventListener("DOMContentLoaded", () => {
     const favoritosButton = document.getElementById("favorit");
     const perfilContent = document.getElementById("perfil-content");
-    const editPasswordContainer = document.getElementById("edit-password-container");
     const editNameContainer = document.getElementById("edit-name-container");
 
     favoritosButton.addEventListener("click", async () => {
-        editPasswordContainer.style.display = "none";
         editNameContainer.style.display = "none";
     
         const user = auth.currentUser;

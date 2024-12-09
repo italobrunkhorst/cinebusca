@@ -14,7 +14,7 @@
     align-self: stretch;
     height: auto;
     flex-shrink: 0;
-    min-height: 100%;
+    min-height: 100vh;
     background-color: white;
 }
 #perfil-content{
@@ -26,8 +26,7 @@
     height: auto;
     min-height: 72vh;
 }
-#edit-name-container,
-#edit-password-container{
+#edit-name-container{
     width: 50%;
     background-color: #f9f9f9;
     border: 2px solid #007acc;
@@ -41,12 +40,10 @@
     padding: 20px;
     transition: transform 0.2s;
 }
-#edit-name-container:hover,
-#edit-password-containre:hover{
+#edit-name-container:hover{
     transform: scale(1.02);
 }
-#edit-name-container input,
-#edit-password-container input{
+#edit-name-container input{
     width: 90%;
     padding: 12px;
     margin: 10px 0;
@@ -56,13 +53,11 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: border-color 0.3s;
 }
-#edit-name-container input:focus,
-#edit-password-container input:focus{
+#edit-name-container input:focus{
     border-color: #007acc;
     outline: none;
 }
-#edit-name-container button,
-#edit-password-container button {
+#edit-name-container button {
     width: 150px;
     padding: 10px;
     margin: 10px;
@@ -76,16 +71,13 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, transform 0.2s;
 }
-#edit-name-container button:hover,
-#edit-password-container button:hover{
+#edit-name-container button:hover{
     transform: scale(1.05);
 }
-#save-name:hover,
-#save-password:hover{
+#save-name:hover{
     background-color: #28a745;
 }
-#cancel-name:hover,
-#cancel-password:hover{
+#cancel-name:hover{
     background-color: #c82333;
 }
 #logout-btn{
@@ -228,8 +220,7 @@
     .favorito-link h3 {
         font-size: 11px; 
     }
-    #edit-name-container,
-    #edit-password-container {
+    #edit-name-container{
         width: 90%;
         height: auto;
         padding: 15px;
@@ -238,21 +229,12 @@
         flex-direction: column;
         align-items: center; 
     }
-    #edit-name-container input,
-    #edit-password-container input {
+    #edit-name-container input {
         width: 100%;
         padding: 8px;
         font-size: 0.9em;
     }
-    .button-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center; 
-        gap: 10px;
-        width: 100%; 
-    }
-    #edit-name-container button,
-    #edit-password-container button {
+    #edit-name-container button {
         width: 80%; 
         font-size: 0.85em;
         padding: 8px;

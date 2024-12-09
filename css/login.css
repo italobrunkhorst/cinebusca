@@ -77,11 +77,50 @@ header{
 .no-account-link {
     display: block;
     margin-top: 15px;
-    color: #333;
+    color: #000000;
     text-decoration: none;
 }
 
 .no-account-link:hover {
+    text-decoration: underline;
+}
+.passaword-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%; 
+}
+
+.passaword-container input {
+    width: 100%;
+    padding-right: 2.5rem; 
+    padding: 10px; 
+    margin: 10px 0; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+}
+
+.toggle-visibility {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #555;
+    font-size: 1.2rem;
+    user-select: none;
+}
+
+.toggle-visibility:hover {
+    color: #000;
+}
+#forgot-password{
+    text-decoration: none;
+    color: #000;
+    padding-bottom: 10px;
+    display: block;
+    text-align: left;
+}
+#forgot-password:hover{
     text-decoration: underline;
 }
 @media (max-width: 768px) {

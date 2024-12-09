@@ -85,6 +85,29 @@ header{
 .no-account-link:hover {
     text-decoration: underline;
 }
+.passaword-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.passaword-container input {
+    width: 100%;
+    padding-right: 2.5rem; /* Espaço para o ícone */
+}
+
+.toggle-visibility {
+    position: absolute;
+    right: 0.5rem;
+    cursor: pointer;
+    color: #555;
+    font-size: 1.2rem;
+    user-select: none;
+}
+
+.toggle-visibility:hover {
+    color: #000;
+}
 @media (max-width: 768px) {
     header {
         height: 60px;

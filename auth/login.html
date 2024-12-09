@@ -5,6 +5,7 @@
     <title>CineBusca</title>
     <link rel="stylesheet" href="../css/login.css">
     <link rel="shortcut icon" href="../img/pipoca.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />   
 </head>
 <body>
     <header>
@@ -19,8 +20,12 @@
                 <input type="email" id="email" name="email" required>
 
                 <label for="senha">Senha:</label>
-                <input type="password" id="senha" name="senha" required>
+                <div class="passaword-container">
+                    <input type="password" id="senha" name="senha" required>
+                    <span class="material-symbols-outlined toggle-visibility" id="toggle-senha">visibility</span>
+                </div>
 
+                <a href="#" id="forgot-password">Esqueci a senha!</a>
                 <button type="submit">Entrar</button>
                 
                 <a href="register.html" class="no-account-link">Não tenho conta</a>
