@@ -25,16 +25,14 @@ body{
     background-image: url('../../img/comedia-romantica.page5.png');
     background-position: 0 70px;
 }
-hr{
-    margin: 0 10%;
-}
+
 h1{
     text-align: center;
     margin: 50px;
 }
 #title{
     background-color: white;
-    margin: 0 10%;
+    padding: 2% 0 ;
 }
 .corpo{
     background-color: white;
@@ -42,7 +40,6 @@ h1{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 10%;
 }
 .corpo img{
     width: 100%;
@@ -74,8 +71,7 @@ p{
     align-items: center;
     list-style: none;
     background-color: white;
-    margin: 0 10%;
-    padding: 30px;
+    padding: 25px;
 }
 .link_page{
     text-decoration: none;
@@ -127,9 +123,6 @@ p{
     h1{
         margin: 30px;
         font-size: 1.5em;
-    }
-    hr{
-        margin: 0;
     }
     .corpo{
         margin: 0;

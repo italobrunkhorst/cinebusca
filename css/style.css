@@ -10,7 +10,6 @@ body{
     display: flex;
     flex-direction: column;
     background-image: url('../img/CineBusca.png');
-
     margin: 0;
 }
 header{
@@ -90,6 +89,29 @@ h2, #dropdown{
 }
 #dropdown-content a:hover{
     background-color: grey;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+.coluna-esquerda,
+.coluna-direita {
+    width: 10%;
+    height: 100%;
+    background-image: url('../../img/ação.page1.png');
+    background-repeat: repeat-y;
+    background-size: contain;
+}
+.coluna-esquerda img,
+.coluna-direita img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.conteudo-principal {
+    flex: 1;
+    max-width: 100%;
 }
 #footer_home{
     height: 100px;
@@ -328,5 +350,9 @@ h2, #dropdown{
     #search-btn {
         font-size: 0.9em;
         padding: 10px 15px;
+    }
+    .coluna-esquerda,
+    .coluna-direita {
+        display: none;
     }
 }
